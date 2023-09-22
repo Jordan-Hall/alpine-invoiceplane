@@ -7,9 +7,6 @@ CURRENT_VERSION=$(grep -oP 'IP_VERSION=\K[^;]+' "$CONFIG_FILE" 2>/dev/null)
 
 if [ -f "$FILE" ] && [ "$FORCE_UPDATE" != "true" ] && [ "$CURRENT_VERSION" == "$VERSION" ]; then
     echo "InvoicePlane Installation found and no update required";
-    # Ensure setup is disabled after an update
-    sed -i "s/DISABLE_SETUP=false/DISABLE_SETUP=true/g" $CONFIG_FILE
-    echo "Setup disabled."
 else 
     echo "Setting up or updating InvoicePlane at /config/www/invoiceplane";
     
@@ -35,6 +32,12 @@ else
     sed -i "s/DB_PORT=/DB_PORT=${DB_PORT}/g" $CONFIG_FILE
     sed -i "s/REMOVE_INDEXPHP=false/REMOVE_INDEXPHP=true/g" $CONFIG_FILE
     sed -i "s/IP_VERSION=[^;]*/IP_VERSION=$VERSION/g" $CONFIG_FILE
+    
+    # Disable setup only for updates (not for new installs)
+    if [ -f "$FILE" ]; then
+        sed -i "s/DISABLE_SETUP=false/DISABLE_SETUP=true/g" $CONFIG_FILE
+        echo "Setup disabled."
+    fi
 fi
 
 # permissions
