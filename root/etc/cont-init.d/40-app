@@ -32,12 +32,6 @@ else
     sed -i "s/DB_PORT=/DB_PORT=${DB_PORT}/g" $CONFIG_FILE
     sed -i "s/REMOVE_INDEXPHP=false/REMOVE_INDEXPHP=true/g" $CONFIG_FILE
     sed -i "s/IP_VERSION=[^;]*/IP_VERSION=$VERSION/g" $CONFIG_FILE
-    
-    # Disable setup only for updates (not for new installs)
-    if [ -f "$FILE" ]; then
-        sed -i "s/DISABLE_SETUP=false/DISABLE_SETUP=true/g" $CONFIG_FILE
-        echo "Setup disabled."
-    fi
 fi
 
 # permissions
