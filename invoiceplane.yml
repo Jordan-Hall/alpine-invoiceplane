@@ -49,8 +49,8 @@ caproverOneClickApp:
           id: $$cap_DB_DATABASE
           label: DB_DATABASE
           validRegex: /^([^\s^\/])+$/
-        - defaultValue: "v1.5.11"  # Added this section for VERSION
-          description: The version of InvoicePlane to deploy.
+        - defaultValue: "v1.6.1-beta-3"  # Added this section for VERSION
+          description: The version of InvoicePlane to deploy. https://github.com/InvoicePlane/InvoicePlane/releases
           id: $$cap_VERSION
           label: VERSION
           validRegex: /^v?\d+(\.\d+)*(-\w+)?$/
