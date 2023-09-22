@@ -4,7 +4,7 @@ LABEL maintainer="jordan@libertyware.co.uk"
 LABEL version="v1.5.11"
 
 # Define ARG for DEFAULT_VERSION
-ARG DEFAULT_VERSION="v1.5.11"
+ARG DEFAULT_VERSION="v1.6.1-beta-3"
 # Define ENV for VERSION with default value set to DEFAULT_VERSION
 ENV VERSION=${DEFAULT_VERSION}
 
