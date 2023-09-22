@@ -21,29 +21,32 @@ ARG PUID=1000
 ARG PGID=1000
 
 RUN set -xe \
-    && apk add --no-cache --purge -uU \
+    && apk --no-cache update \
+    && apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main \
         curl \
         unzip \
-        php-ctype \
-        php-bcmath \
-        php-dom \
-        php-gd \
-    	php-mysqli \
-    	php-mysqlnd \
-    	php-openssl \
-    	php-pdo_mysql \
-    	php-fileinfo \
-    	php-posix \
-    	php-session \
-    	php-tokenizer \
-    	php-xml \
-    	php-zip \
-    	php-zlib \
-        php-exif \
-        php-simplexml \
-        php-xmlreader \
-        php-xmlwriter \
-        php-gmp \
+        php8 \
+        php8-ctype \
+        php8-bcmath \
+        php8-dom \
+        php8-gd \
+        php8-mysqli \
+        php8-mysqlnd \
+        php8-openssl \
+        php8-pdo_mysql \
+        php8-fileinfo \
+        php8-posix \
+        php8-session \
+        php8-tokenizer \
+        php8-xml \
+        php8-zip \
+        php8-zlib \
+        php8-exif \
+        php8-simplexml \
+        php8-xmlreader \
+        php8-xmlwriter \
+        php8-gmp \
+    && ln -sf /usr/bin/php8 /usr/bin/php \
     && mkdir -p /opt/invoiceplane \
     && echo "InvoicePlane version: ${VERSION}" > /opt/invoiceplane/version \
     && curl -o ${INVOICEPLANE_SRC} -SL "https://github.com/InvoicePlane/InvoicePlane/releases/download/${VERSION}/${VERSION}.zip" \
