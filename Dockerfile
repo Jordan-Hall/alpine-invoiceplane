@@ -1,9 +1,13 @@
 FROM woahbase/alpine-php:x86_64
 
-LABEL maintainer="hello@thomascenni.com"
+LABEL maintainer="jordan@libertyware.co.uk"
 LABEL version="v1.5.11"
 
-ARG VERSION="v1.5.11"
+# Define ARG for DEFAULT_VERSION
+ARG DEFAULT_VERSION="v1.5.11"
+# Define ENV for VERSION with default value set to DEFAULT_VERSION
+ENV VERSION=${DEFAULT_VERSION}
+
 ENV INVOICEPLANE_SRC=/opt/invoiceplane/invoiceplane.zip
 
 ENV IP_URL="http://localhost" \
@@ -42,9 +46,10 @@ RUN set -xe \
         php7-gmp \
     && mkdir -p /opt/invoiceplane \
     && echo "InvoicePlane version: ${VERSION}" > /opt/invoiceplane/version \
-    && curl -o ${INVOICEPLANE_SRC} -SL "https://github.com/InvoicePlane/InvoicePlane/releases/download/${VERSION}/${VERSION}.zip" \    
+    && curl -o ${INVOICEPLANE_SRC} -SL "https://github.com/InvoicePlane/InvoicePlane/releases/download/${VERSION}/${VERSION}.zip" \
     && unzip -qt ${INVOICEPLANE_SRC} \
     && rm -rf /var/cache/apk/* /tmp/*
+
 # add local files
 COPY root/ /
 # ports, volumes etc from php
