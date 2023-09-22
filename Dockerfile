@@ -21,18 +21,38 @@ ARG PUID=1000
 ARG PGID=1000
 
 RUN set -xe && apk --no-cache update
-RUN apk add --no-cache \
-    curl unzip \
-    libxml2-dev \
-    freetype-dev libjpeg-turbo-dev libpng-dev
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
-RUN docker-php-ext-install ctype bcmath dom gd mysqli pdo_mysql fileinfo posix tokenizer xml exif
 
-RUN mkdir -p /opt/invoiceplane
-RUN echo "InvoicePlane version: ${VERSION}" > /opt/invoiceplane/version
-RUN curl -o ${INVOICEPLANE_SRC} -SL "https://github.com/InvoicePlane/InvoicePlane/releases/download/${VERSION}/${VERSION}.zip"
-RUN unzip -qt ${INVOICEPLANE_SRC}
-RUN rm -rf /var/cache/apk/* /tmp/*
+# Installing required libraries and PHP extensions using Alpine packages
+RUN apk add --no-cache \
+    curl \
+    unzip \
+    php8 \
+    php8-ctype \
+    php8-bcmath \
+    php8-dom \
+    php8-gd \
+    php8-mysqli \
+    php8-pdo_mysql \
+    php8-fileinfo \
+    php8-posix \
+    php8-session \
+    php8-tokenizer \
+    php8-xml \
+    php8-zip \
+    php8-exif \
+    php8-simplexml \
+    php8-xmlreader \
+    php8-xmlwriter \
+    php8-gmp
+
+# Linking the PHP 8 binary as the default PHP binary
+RUN ln -sf /usr/bin/php8 /usr/bin/php
+
+RUN mkdir -p /opt/invoiceplane \
+    && echo "InvoicePlane version: ${VERSION}" > /opt/invoiceplane/version \
+    && curl -o ${INVOICEPLANE_SRC} -SL "https://github.com/InvoicePlane/InvoicePlane/releases/download/${VERSION}/${VERSION}.zip" \
+    && unzip -qt ${INVOICEPLANE_SRC} \
+    && rm -rf /var/cache/apk/* /tmp/*
 
 # add local files
 COPY root/ /
