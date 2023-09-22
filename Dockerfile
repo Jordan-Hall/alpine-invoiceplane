@@ -1,7 +1,7 @@
 FROM woahbase/alpine-php:x86_64
 
 LABEL maintainer="jordan@libertyware.co.uk"
-LABEL version="v1.5.11"
+LABEL version="v1.6.1-beta-3"
 
 # Define ARG for DEFAULT_VERSION
 ARG DEFAULT_VERSION="v1.6.1-beta-3"
