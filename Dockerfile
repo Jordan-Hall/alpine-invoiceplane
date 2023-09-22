@@ -1,4 +1,4 @@
-FROM woahbase/alpine-php:x86_64
+FROM davidzapata/php-composer-alpine:8.2
 
 LABEL maintainer="jordan@libertyware.co.uk"
 LABEL version="v1.6.1-beta-3"
