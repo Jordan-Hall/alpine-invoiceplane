@@ -24,26 +24,26 @@ RUN set -xe \
     && apk add --no-cache --purge -uU \
         curl \
         unzip \
-        php7-ctype \
-        php7-bcmath \
-        php7-dom \
-        php7-gd \
-    	php7-mysqli \
-    	php7-mysqlnd \
-    	php7-openssl \
-    	php7-pdo_mysql \
-    	php7-fileinfo \
-    	php7-posix \
-    	php7-session \
-    	php7-tokenizer \
-    	php7-xml \
-    	php7-zip \
-    	php7-zlib \
-        php7-exif \
-        php7-simplexml \
-        php7-xmlreader \
-        php7-xmlwriter \
-        php7-gmp \
+        php-ctype \
+        php-bcmath \
+        php-dom \
+        php-gd \
+    	php-mysqli \
+    	php-mysqlnd \
+    	php-openssl \
+    	php-pdo_mysql \
+    	php-fileinfo \
+    	php-posix \
+    	php-session \
+    	php-tokenizer \
+    	php-xml \
+    	php-zip \
+    	php-zlib \
+        php-exif \
+        php-simplexml \
+        php-xmlreader \
+        php-xmlwriter \
+        php-gmp \
     && mkdir -p /opt/invoiceplane \
     && echo "InvoicePlane version: ${VERSION}" > /opt/invoiceplane/version \
     && curl -o ${INVOICEPLANE_SRC} -SL "https://github.com/InvoicePlane/InvoicePlane/releases/download/${VERSION}/${VERSION}.zip" \
