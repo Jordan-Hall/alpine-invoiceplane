@@ -21,7 +21,7 @@ else
     touch /config/log/invoiceplane/{access,error}_invoiceplane_log
 
     # db config - only move if it's a fresh install
-    [ -f "$CONFIG_FILE" ] || mv /config/www/invoiceplane/ipconfig.php.example $CONFIG_FILE
+    mv /config/www/invoiceplane/ipconfig.php.example $CONFIG_FILE
 
     # update variables
     sed -i "s/IP_URL=/IP_URL=${IP_URL//\//\\/}/g" $CONFIG_FILE
