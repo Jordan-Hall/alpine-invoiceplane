@@ -21,8 +21,13 @@ ARG PUID=1000
 ARG PGID=1000
 
 RUN set -xe && apk --no-cache update
-RUN apk add --no-cache curl unzip
+RUN apk add --no-cache \
+    curl unzip \
+    libxml2-dev \
+    freetype-dev libjpeg-turbo-dev libpng-dev
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install ctype bcmath dom gd mysqli pdo_mysql fileinfo posix tokenizer xml exif
+
 RUN mkdir -p /opt/invoiceplane
 RUN echo "InvoicePlane version: ${VERSION}" > /opt/invoiceplane/version
 RUN curl -o ${INVOICEPLANE_SRC} -SL "https://github.com/InvoicePlane/InvoicePlane/releases/download/${VERSION}/${VERSION}.zip"
