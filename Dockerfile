@@ -8,7 +8,7 @@ ARG DEFAULT_VERSION="v1.6.1-beta-3"
 # Define ENV for VERSION with default value set to DEFAULT_VERSION
 ENV VERSION=${DEFAULT_VERSION}
 
-ENV INVOICEPLANE_SRC=/opt/invoiceplane/invoiceplane.zip
+ENV INVOICEPLANE_SRC=/opt/invoiceplane
 
 ENV IP_URL="http://localhost" \
     DB_HOSTNAME="localhost" \
@@ -44,10 +44,12 @@ RUN set -xe \
         php7-xmlreader \
         php7-xmlwriter \
         php7-gmp \
-    && mkdir -p /opt/invoiceplane \
+    && mkdir -p ${INVOICEPLANE_SRC} \
     && echo "InvoicePlane version: ${VERSION}" > /opt/invoiceplane/version \
-    && curl -o ${INVOICEPLANE_SRC} -SL "https://github.com/InvoicePlane/InvoicePlane/releases/download/${VERSION}/${VERSION}.zip" \
-    && unzip -qt ${INVOICEPLANE_SRC} \
+    && curl -o /tmp/invoiceplane.zip -SL "https://github.com/InvoicePlane/InvoicePlane/releases/download/${VERSION}/${VERSION}.zip" \
+    && unzip /tmp/invoiceplane.zip -d /tmp \
+    && mv /tmp/ip/* ${INVOICEPLANE_SRC}/ \
+    && rm -rf /tmp/ip /tmp/invoiceplane.zip \
     && rm -rf /var/cache/apk/* /tmp/*
 
 # add local files
