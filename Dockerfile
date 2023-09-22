@@ -1,4 +1,4 @@
-FROM woahbase/alpine-php:x86_64
+FROM php:8-fpm-alpine
 
 LABEL maintainer="jordan@libertyware.co.uk"
 LABEL version="v1.6.1-beta-3"
@@ -22,31 +22,21 @@ ARG PGID=1000
 
 RUN set -xe \
     && apk --no-cache update \
-    && apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main \
+    && apk add --no-cache \
         curl \
         unzip \
-        php8 \
-        php8-ctype \
-        php8-bcmath \
-        php8-dom \
-        php8-gd \
-        php8-mysqli \
-        php8-mysqlnd \
-        php8-openssl \
-        php8-pdo_mysql \
-        php8-fileinfo \
-        php8-posix \
-        php8-session \
-        php8-tokenizer \
-        php8-xml \
-        php8-zip \
-        php8-zlib \
-        php8-exif \
-        php8-simplexml \
-        php8-xmlreader \
-        php8-xmlwriter \
-        php8-gmp \
-    && ln -sf /usr/bin/php8 /usr/bin/php \
+    && docker-php-ext-install \
+        ctype \
+        bcmath \
+        dom \
+        gd \
+        mysqli \
+        pdo_mysql \
+        fileinfo \
+        posix \
+        tokenizer \
+        xml \
+        exif \
     && mkdir -p /opt/invoiceplane \
     && echo "InvoicePlane version: ${VERSION}" > /opt/invoiceplane/version \
     && curl -o ${INVOICEPLANE_SRC} -SL "https://github.com/InvoicePlane/InvoicePlane/releases/download/${VERSION}/${VERSION}.zip" \
