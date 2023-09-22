@@ -53,7 +53,6 @@ caproverOneClickApp:
           description: The version of InvoicePlane to deploy. https://github.com/InvoicePlane/InvoicePlane/releases
           id: $$cap_VERSION
           label: VERSION
-          validRegex: /^v?\d+(\.\d+)*(-\w+)?$/
     instructions:
         start: >-
             InvoicePlane is a self-hosted open source application for managing invoices.
