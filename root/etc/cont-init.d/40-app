@@ -15,8 +15,8 @@ else
         /config/www/invoiceplane \
         /config/log/invoiceplane
 
-    # install or update InvoicePlane
-    unzip -q ${INVOICEPLANE_SRC} -d /config/www/invoiceplane
+    # install or update InvoicePlane with overwrite
+    unzip -oq ${INVOICEPLANE_SRC} -d /config/www/invoiceplane
 
     touch /config/log/invoiceplane/{access,error}_invoiceplane_log
 
