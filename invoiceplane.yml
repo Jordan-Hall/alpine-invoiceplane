@@ -14,7 +14,7 @@ services:
             notExposeAsWebApp: "true"
 
     $$cap_appname:
-        image: "thomascenni/alpine-invoiceplane:v1.5.11"
+        image: "ghcr.io/jordan-hall/alpine-invoiceplane:master"
         volumes:
             - $$cap_appname-storage:/storage
             - $$cap_appname-config:/config
@@ -25,6 +25,7 @@ services:
             DB_PASSWORD: $$cap_DB_PASSWORD
             DB_DATABASE: $$cap_DB_DATABASE
             DB_PORT: "3306"
+            VERSION: $$cap_VERSION  # Added this line
 
 caproverOneClickApp:
     variables:
@@ -48,6 +49,11 @@ caproverOneClickApp:
           id: $$cap_DB_DATABASE
           label: DB_DATABASE
           validRegex: /^([^\s^\/])+$/
+        - defaultValue: "v1.5.11"  # Added this section for VERSION
+          description: The version of InvoicePlane to deploy.
+          id: $$cap_VERSION
+          label: VERSION
+          validRegex: /^v?\d+(\.\d+)*(-\w+)?$/
     instructions:
         start: >-
             InvoicePlane is a self-hosted open source application for managing invoices.
@@ -56,11 +62,11 @@ caproverOneClickApp:
 
             This one click app is based on:
             - woahbase/alpine-mysql image
-            - thomascenni/alpine-invoiceplane, based on woahbase/alpine-php and the official InvoicePlane sources from their Github repository.
+            - https://github.com/Jordan-Hall/alpine-invoiceplane, based on woahbase/alpine-php and the official InvoicePlane sources from their Github repository.
         end: >-
             InvoicePlane is deployed and available as $$cap_appname.
             IMPORTANT: It will take up to 1 minute for InvoicePlane to be ready. 
-            Before that, you might see 502 error page.
+            Before that, you might see a 502 error page.
     displayName: InvoicePlane
     isOfficial: false
     description: InvoicePlane is a self-hosted open source application for managing your quotes, invoices, clients and payments.
